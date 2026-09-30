@@ -11,7 +11,7 @@ void CVDM(node *&head, int x) {
     newNode->next = head;
     head = newNode;
 }
-//2.Chèn vào cuối mảng - 
+//2.Chèn vào cuối mảng - Độ phức tạp O(n)
 void CVCM(node *&head, int x) {
     node *newNode = new node;
     newNode->data = x;
@@ -22,8 +22,8 @@ void CVCM(node *&head, int x) {
     }
     temp->next = newNode;
 }
-//3.Chèn vào vị trí k 
-void ViTri_k(node *&head, int x, int k) {
+//3.Chèn vào vị trí k - Độ phức tạp O(n)
+void Chen_k(node *&head, int x, int k) {
     if (k <= 1) {
         CVDM(head, x);
     }
@@ -39,14 +39,14 @@ void ViTri_k(node *&head, int x, int k) {
     newNode->next = temp->next;
     temp->next = newNode;
 }
-//4.Xóa đầu 
+//4.Xóa đầu - Độ phức tạp O(1)
 void XoaDau(node *&head) {
     if (head == NULL) return;
     node *temp = head;
     head = head->next;
     delete temp;
 }
-//5.Xóa cuối
+//5.Xóa cuối - Độ phức tạp O(n)
 void XoaCuoi(node *&head) {
     if (head == NULL) return;
     if (head->next == NULL) {
@@ -61,11 +61,11 @@ void XoaCuoi(node *&head) {
     delete temp->next; 
     temp->next = NULL; 
 }
-//6.Xóa tại vị trí k
+//6.Xóa tại vị trí k - Độ phức tạp O(n)
 void Xoa_k(node *&head, int k) {
     if (head == NULL) return;
     if (k <= 1) {
-        xoadau(head);
+        XoaDau(head);
         return;
     }
     node *temp = head;
@@ -77,7 +77,7 @@ void Xoa_k(node *&head, int k) {
     temp->next = temp->next->next;
     delete nodeToDelete;
 }
-// 7.Duyệt xuôi
+// 7.Duyệt xuôi - Độ phức tạp O(n)
 void DuyetXuoi(node *head) {
     node *temp = head;
     while (temp != NULL) {
@@ -86,10 +86,9 @@ void DuyetXuoi(node *head) {
     }
     cout << endl;
 }
-//8.Duyệt ngược
-void duyetnguoc(node *head) {
+//8.Duyệt ngược - - Độ phức tạp O(n)
+void DuyetNguoc(node *head) {
     if (head == NULL) return;
-    
-    duyetnguoc(head->next); 
+    DuyetNguoc(head->next); 
     cout << head->data << " ";
 }
