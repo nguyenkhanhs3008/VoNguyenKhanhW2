@@ -1,0 +1,122 @@
+//Khai báo cấu trúc Double List
+struct node {
+    int data;
+    node *next;
+    node *prev; 
+};
+// 1. Chèn vào đầu mảng - Độ phức tạp O(1)
+void CVDM(node *&head, int x) {
+    node *newNode = new node;
+    newNode->data = x;
+    newNode->next = head;
+    newNode->prev = NULL;
+    if (head != NULL) {
+        head->prev = newNode;
+    }
+    head = newNode;
+}
+// 2. Chèn vào cuối mảng - Độ phức tạp O(n)
+void CVCM(node *&head, int x) {
+    node *newNode = new node;
+    newNode->data = x;
+    newNode->next = NULL;
+    if (head == NULL) {
+        newNode->prev = NULL;
+        head = newNode;
+        return;
+    }
+    node *temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    newNode->prev = temp; 
+}
+// 3. Chèn vào vị trí k - Độ phức tạp O(n)
+void Chen_k(node *&head, int x, int k) {
+    if (k <= 1) {
+        themdau(head, x);
+        return;
+    }
+    node *temp = head;
+    for (int i = 1; i < k - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        themcuoi(head, x);
+        return;
+    }
+    node *newNode = new node;
+    newNode->data = x;
+    newNode->next = temp->next;
+    newNode->prev = temp;
+    if (temp->next != NULL) {
+        temp->next->prev = newNode;
+    }
+    temp->next = newNode;
+}
+// 4. Xóa đầu - Độ phức tạp O(1)
+void XoaDau(node *&head) {
+    if (head == NULL) return;
+    node *temp = head;
+    head = head->next;
+    if (head != NULL) {
+        head->prev = NULL; 
+    }
+    delete temp;
+}
+// 5. Xóa cuối - Độ phức tạp O(n)
+void XoaCuoi(node *&head) {
+    if (head == NULL) return;
+    if (head->next == NULL) {
+        delete head;
+        head = NULL;
+        return;
+    }
+    node *temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->prev->next = NULL; 
+    delete temp;
+}
+// 6. Xóa tại vị trí k - Độ phức tạp O(n)
+void Xoa_k(node *&head, int k) {
+    if (head == NULL) return;
+    if (k <= 1) {
+        xoadau(head);
+        return;
+    }
+    node *temp = head;
+    for (int i = 1; i < k && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp == NULL) return;
+    temp->prev->next = temp->next;
+    if (temp->next != NULL) {
+        temp->next->prev = temp->prev;
+    }
+    delete temp;
+}
+// 7. Duyệt xuôi - Độ phức tạp O(n)
+void DuyetXuoi(node *head) {
+    node *temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+// 8. Duyệt ngược - Độ phức tạp O(n)
+void DuyetNguoc(node *head) {
+    if (head == NULL) return;
+    node *temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }   
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->prev;
+    }
+    cout << endl;
+}
