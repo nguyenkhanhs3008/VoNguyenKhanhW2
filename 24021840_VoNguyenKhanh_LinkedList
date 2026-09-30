@@ -1,0 +1,95 @@
+//Khai báo cấu trúc Linked List
+struct Node{
+	int data;
+	Node * next;
+}
+node *head=NULL;
+//1.Chèn vào đầu mảng - Độ phức tạp O(1)
+void CVDM(node *&head, int x) {
+    node *newNode = new node;
+    newNode->data = x;
+    newNode->next = head;
+    head = newNode;
+}
+//2.Chèn vào cuối mảng - 
+void CVCM(node *&head, int x) {
+    node *newNode = new node;
+    newNode->data = x;
+    newNode->next = NULL;
+    node *temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+//3.Chèn vào vị trí k 
+void ViTri_k(node *&head, int x, int k) {
+    if (k <= 1) {
+        CVDM(head, x);
+    }
+    node *temp = head;
+    for (int i = 1; i < k - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        CVCM(head, x);
+    }
+    node *newNode = new node;
+    newNode->data = x;
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+//4.Xóa đầu 
+void XoaDau(node *&head) {
+    if (head == NULL) return;
+    node *temp = head;
+    head = head->next;
+    delete temp;
+}
+//5.Xóa cuối
+void XoaCuoi(node *&head) {
+    if (head == NULL) return;
+    if (head->next == NULL) {
+        delete head;
+        head = NULL;
+        return;
+    }
+    node *temp = head;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+    delete temp->next; 
+    temp->next = NULL; 
+}
+//6.Xóa tại vị trí k
+void Xoa_k(node *&head, int k) {
+    if (head == NULL) return;
+    if (k <= 1) {
+        xoadau(head);
+        return;
+    }
+    node *temp = head;
+    for (int i = 1; i < k - 1 && temp->next != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp->next == NULL) return;  
+    node *nodeToDelete = temp->next;
+    temp->next = temp->next->next;
+    delete nodeToDelete;
+}
+// 7.Duyệt xuôi
+void DuyetXuoi(node *head) {
+    node *temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+//8.Duyệt ngược
+void duyetnguoc(node *head) {
+    if (head == NULL) return;
+    
+    duyetnguoc(head->next); 
+    cout << head->data << " ";
+}
