@@ -1,0 +1,47 @@
+1.Dùng List
+struct StackList {
+    int arr[MAX];
+    int topIndex;
+    void init() {
+        topIndex = -1;
+    }
+    bool isEmpty() { return topIndex == -1; }
+    bool isFull() { return topIndex == MAX - 1; }
+// Chèn đầu
+    void ChenDau(int a) {
+        if (isFull()) {
+            cout << "Full"<<endl;
+        }
+        topIndex++;
+        arr[topIndex] = a;
+    }
+// Xóa đầu
+    int XoaDau() {
+        if (isEmpty()) return -1;
+        int v = arr[topIndex];
+        topIndex--;
+        return v;
+    }
+2. Dùng LinkedList
+struct StackLinkedList {
+    Node* head;
+    void init() {
+        head = nullptr;
+    }
+    bool isEmpty() { return head == nullptr; }
+// Chèn đầu
+    void ChenDau(int a) {
+        Node* newNode = new Node();
+        newNode->data = a;
+        newNode->next = head;
+        head = newNode;
+    }
+// Xóa đầu
+    int XoaDau() {
+        if (isEmpty()) return -1;
+        Node* temp = head;
+        int v = temp->data;
+        head = head->next;
+        delete temp;
+        return v;
+    }
